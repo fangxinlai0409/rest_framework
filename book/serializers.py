@@ -42,6 +42,14 @@ class PeopleInfoSerializer(serializers.Serializer):
     # book_id=serializers.IntegerField()
 
 class BookInfoModelSerializer(serializers.ModelSerializer):
+    # name=serializers.CharField(max_length=10,min_length=5,required=True)
     class Meta:
         model = BookInfo
         fields='__all__'
+        read_only_fields=['id','name']
+        extra_kwargs = {
+            'name':{
+                'max_length':40,
+                'min_length':10
+            }
+        }
