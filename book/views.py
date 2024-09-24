@@ -116,5 +116,12 @@ class BookDetailView(View):
         return JsonResponse({},status=204)
 
 
-
-
+from book.serializers import BookInfoSerializer
+data = {
+    'id':5,
+    'name':'c++',
+    'pub_date':'2018-11-1',
+    'readcount':666
+}
+serializer = BookInfoSerializer(data=data)
+serializer.is_valid()
