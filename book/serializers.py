@@ -21,6 +21,18 @@ class BookInfoSerializer(serializers.Serializer):
             raise serializers.ValidationError('comment can not greater than read')
         return data
 
+    def create(self, validated_data):
+        return BookInfo.objects.create(**validated_data)
+
+    def update(self,instance,validated_data):
+        instance.name = validated_data('name',instance.name)
+        instance.pub_date = validated_data('pub_date',instance.pub_date)
+        instance.readcount = validated_data('readcount',instance.readcount)
+        instance.commentcount = validated_data('commentcount',instance.commentcount)
+        instance.save()
+        return instance
+
+
 class PeopleInfoSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     name = serializers.CharField()
@@ -28,3 +40,8 @@ class PeopleInfoSerializer(serializers.Serializer):
     description = serializers.CharField()
     is_delete=serializers.BooleanField()
     # book_id=serializers.IntegerField()
+
+class BookInfoModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookInfo
+        fields='__all__'

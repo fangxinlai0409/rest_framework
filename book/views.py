@@ -124,4 +124,20 @@ data = {
     'readcount':666
 }
 serializer = BookInfoSerializer(data=data)
-serializer.is_valid()
+serializer.is_valid(raise_exception=True)
+serializer.save()
+
+from book.serializers import BookInfoSerializer
+from book.models import BookInfo
+book = BookInfo.objects.get(id=1)
+data = {
+    'name':'shediaoyingxiongzhuan',
+    'pub_date':'2000-1-1',
+    'readcount':999,
+    'commentcount':666
+}
+serializer=BookInfoSerializer(instance=book,data=data)
+serializer.is_valid(raise_exception=True)
+
+from book.serializers import BookInfoModelSerializer
+serializer = BookInfoModelSerializer(data=data)
