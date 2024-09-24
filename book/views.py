@@ -114,3 +114,7 @@ class BookDetailView(View):
         book.delete()
 
         return JsonResponse({},status=204)
+
+
+
+
